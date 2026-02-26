@@ -29,7 +29,6 @@ async function handleSubmit(event) {
   const inputValue = event.target.elements['search-text'].value.trim();
   if (!inputValue) return;
 
-  // ✅ ОБОВ'ЯЗКОВО при кожному submit
   page = 1;
   totalHits = 0;
   clearGallery();
