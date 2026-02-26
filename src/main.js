@@ -29,11 +29,11 @@ async function handleSubmit(event) {
   const inputValue = event.target.elements['search-text'].value.trim();
   if (!inputValue) return;
 
-  if (inputValue !== currentValue) {
-    page = 1;
-    clearGallery();
-    hideLoadMoreButton();
-  }
+  // ✅ ОБОВ'ЯЗКОВО при кожному submit
+  page = 1;
+  totalHits = 0;
+  clearGallery();
+  hideLoadMoreButton();
 
   currentValue = inputValue;
 
@@ -43,7 +43,6 @@ async function handleSubmit(event) {
     const res = await getImagesByQuery(currentValue, page);
 
     if (res.hits.length === 0) {
-      hideLoader();
       iziToast.error({
         message:
           'Sorry, there are no images matching your search query. Please, try again!',
@@ -59,7 +58,6 @@ async function handleSubmit(event) {
     if (page * 15 < totalHits) {
       showLoadMoreButton();
     } else {
-      hideLoadMoreButton();
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
