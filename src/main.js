@@ -79,10 +79,9 @@ async function handleSubmit(event) {
 
 async function handleLoadMore() {
   showLoader();
-
+  hideLoadMoreButton();
   try {
     const res = await getImagesByQuery(currentValue, page);
-
     createGallery(res.hits);
 
     const card = document.querySelector('.img-item');
@@ -99,6 +98,8 @@ async function handleLoadMore() {
         message: "We're sorry, but you've reached the end of search results.",
         position: 'topRight',
       });
+    } else {
+      showLoadMoreButton();
     }
 
     page++;
